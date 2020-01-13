@@ -33,7 +33,30 @@ export default class App extends Component {
 
   onHandleSubmit = e => {
     e.preventDefault();
-    this.getContact(this.state);
+    if (
+      e.target.name.value.length === 0 ||
+      e.target.number.value.length === 0
+    ) {
+      return;
+    }
+
+    let unique = true;
+
+    this.state.contacts.forEach(contact => {
+      if (contact.name === e.target.name.value) {
+        unique = false;
+        alert(`${e.target.name.value} is already in contacts.`);
+      }
+    });
+
+    if (unique === true) {
+      this.getContact({
+        name: this.state.name,
+        number: this.state.number,
+        id: randomId()
+      });
+    }
+
     this.setState({ name: "", number: "" });
   };
 
