@@ -40,22 +40,20 @@ export default class App extends Component {
       return;
     }
 
-    let unique = true;
-
+    let unique = false;
     this.state.contacts.forEach(contact => {
       if (contact.name === e.target.name.value) {
-        unique = false;
         alert(`${e.target.name.value} is already in contacts.`);
-      }
+        unique = false;
+      } else unique = true;
     });
 
-    if (unique === true) {
+    unique &&
       this.getContact({
         name: this.state.name,
         number: this.state.number,
         id: randomId()
       });
-    }
 
     this.setState({ name: "", number: "" });
   };
@@ -76,6 +74,19 @@ export default class App extends Component {
   onHandleSearch = e => {
     this.setState({ filter: e.target.value });
   };
+
+  componentDidMount() {
+    const persistedContacts = localStorage.getItem("contacts");
+    if (persistedContacts) {
+      this.setState({ contacts: JSON.parse(persistedContacts) });
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  }
 
   render() {
     const filter = this.state.contacts.filter(contact => {

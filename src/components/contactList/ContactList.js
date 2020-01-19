@@ -6,13 +6,13 @@ const ContactList = ({ contacts, onHandleDelete, filter }) => (
     {filter.length === 0
       ? contacts.map(elem => (
           <li id={elem.id} key={elem.id}>
-            {elem.name}:{elem.number}
+            {elem.name}: {elem.number}
             <button onClick={onHandleDelete}>DELETE</button>
           </li>
         ))
       : filter.map(elem => (
           <li id={elem.id} key={elem.id}>
-            {elem.name}:{elem.number}
+            {elem.name}: {elem.number}
             <button onClick={onHandleDelete}>DELETE</button>
           </li>
         ))}
