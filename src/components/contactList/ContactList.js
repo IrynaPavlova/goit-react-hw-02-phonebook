@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ContactList = ({ contacts, onHandleDelete, filter }) => (
   <ul>
-    {filter.length === 0
+    {filter === ""
       ? contacts.map(elem => (
           <li id={elem.id} key={elem.id}>
             {elem.name}: {elem.number}
